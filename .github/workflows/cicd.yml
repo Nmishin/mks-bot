@@ -63,12 +63,13 @@ jobs:
     runs-on: ubuntu-24.04
     needs: build
     steps:
-      - name: executing remote ssh commands using password
+      - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.2.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             docker ps
